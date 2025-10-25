@@ -55,6 +55,7 @@ type Address = {
 interface Person {
   name: string;
   email: string;
+  number: number;
   address?: Address; // Can use type
 }
 ```
@@ -62,6 +63,7 @@ interface Person {
 > Usage: You declare variables with these types/interfaces to enforce the structure and get type checking.
 
 ```tsx
+//The `: Person` part just tells your brain, "Okay, whatever comes after the = must fit the Person shape I defined earlier."
 const person: Person = {
   name: "Manas",
   email: "gmail.com",
@@ -92,10 +94,64 @@ interface Person extends BasePerson {
 We can achieve the same result as interface extends using a type alias with an intersection(&).
 
 ```tsx
-import { Person as BasePerson }  from "./interfaceExtendExample";
+import { Person as BasePerson } from "./interfaceExtendExample";
 type Person = BasePerson & {
   country: string;
 };
 ```
 
 > The & symbol combines the properties of BasePerson with the new properties you define.
+
+## Arrays and Tuples
+
+```tsx
+const arr1: (number | string)[] = [9, "hi"];
+//this is how you declare an array with type.
+```
+
+```tsx
+//we can also create an array of objects in typescript
+
+// users is an array of Person objects
+const users: Person[] = [
+  { firstName: "Manas", lastName: "Saxena", age: 20 },
+  { firstName: "Swati", lastName: "Saxena" },
+];
+```
+
+```tsx
+// tuples are arrays with fixed size and types
+const customTuple: [string, number, boolean] = ["str", 69, true];
+
+//we can also define a type and use it to define a tuple, like this
+
+type CustomTupleType = [string, number, boolean];
+const tuple1: CustomTupleType = ["str", 2, false];
+```
+
+## enums
+
+Enums (enumerations) in TypeScript provide a way to define a set of named constants.
+
+```tsx
+enum OrderStatus {
+  DELIVERED = 1, //1 otherwise 0 when not assigned a specific value
+  PENDING, //2
+  RETURNED, //3
+  CANCELLED, //4
+}
+
+function checkOrder(status: OrderStatus): void {
+  if (status === OrderStatus.DELIVERED) {
+    console.log("order has been delivered");
+  } else if (status === OrderStatus.PENDING) {
+    console.log("order is pending");
+  } else if (status === OrderStatus.RETURNED) {
+    console.log("order has been returned");
+  } else {
+    console.log("order has been cancelled");
+  }
+}
+
+checkOrder(OrderStatus.DELIVERED); //order has been delivered
+```

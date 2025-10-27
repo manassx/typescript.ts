@@ -155,3 +155,15 @@ function checkOrder(status: OrderStatus): void {
 
 checkOrder(OrderStatus.DELIVERED); //order has been delivered
 ```
+
+## type casting/ assertion
+
+When we know the value of an element and that it will be not be null.
+
+```tsx
+const value: string = addOrConcat(6, 9, "concat") as string;
+const inputName = document.getElementById("name")! as HTMLInputElement;
+const inputAge = document.getElementById("age")! as HTMLInputElement; //same thing
+const form = document.getElementById("form") as HTMLFormElement; //same thing
+const output = document.getElementById("output") as HTMLElement;
+```
